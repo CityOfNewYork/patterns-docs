@@ -1,6 +1,6 @@
 # Patterns Documentation
 
-Reusable documentation for pattern libraries created with the [`@nycopportunity/pttrn-cli`](https://github.com/cityofnewyork/patterns-cli).
+Reusable documentation for pattern libraries created with the [`@nycopportunity/pttrn`](https://github.com/cityofnewyork/patterns-cli) CLI.
 
 ## Table of Contents
 
