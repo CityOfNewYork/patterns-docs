@@ -1,7 +1,7 @@
 {
   "name": "@nycopportunity/pttrn-docs",
   "nice": "Patterns Documentation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reusable documentation for pattern libraries created with the @nycopportunity/pttrn-cli",
   "author": "products@nycopportunity.nyc.gov",
   "license": "GPL-3.0+",
