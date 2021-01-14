@@ -1,74 +1,75 @@
-h2 = `${this.package.nice} × tailwindcss configuration`
+h2 = `${this.package.nice} × Tailwindcss configuration`
 
-h3#config-theme Theme
+table class='table'
+  thead
+    tr
+      th class='text-left'
+        b Plugin (link to docs)
+      th class='text-left'
+        b Variants
+      th class='text-right'
+        b Configuration
 
-div class='p-2 bg-secondary-white'
-  b Plugin (link to docs)
+  tbody
+    - for (i in this.tailwind.corePlugins)
+      - plugin = this.tailwind.corePlugins[i];
+      - name = plugin.replace(/[\w]([A-Z])/g, (m) => m[0] + ' ' + m[1]).toLowerCase();
+      - link = name.replace(/\s/g, '-');
 
-div class='mb-4'
-  - for (plugin in this.tailwind.theme)
-    - name = plugin.replace(/[\w]([A-Z])/g, (m) => m[0] + ' ' + m[1]).toLowerCase();
-    - link = name.replace(' ', '-');
+      - config = (this.tailwind.theme.hasOwnProperty(plugin)) ? this.tailwind.theme[plugin] : false;
+      - variants = (this.tailwind.variants.hasOwnProperty(plugin)) ? this.tailwind.variants[plugin] : false;
+      - description = (this.tailwind.descriptions.hasOwnProperty(plugin)) ? this.tailwind.descriptions[plugin] : false;
+      - prefix = (this.tailwind.prefixes.hasOwnProperty(plugin)) ? this.tailwind.prefixes[plugin] : false;
 
-    - config = (this.tailwind.theme.hasOwnProperty(plugin)) ? this.tailwind.theme[plugin] : false;
-    - variants = (this.tailwind.variants.hasOwnProperty(plugin)) ? this.tailwind.variants[plugin] : false;
+      tr
+        td class='text-left'
+          a href='${this.urls.tailwindDocs}${link}' class='capitalize' target='_blank'
+            = name
 
-    div id='config-${link}' class='p-2 layout-two-columns items-center border-b border-secondary-white-70t'
-      a href='${this.urls.tailwindDocs}${link}' class='capitalize' target='_blank' = `${name}`;
+        td class='text-left'
+          - if (variants.length)
+            == variants.map(v => `<code>${v}</code>`).join(' ')
+          - else
+            | None
 
-      div class='text-right'
-        - if (config)
-          button class='btn' type='button' aria-controls='config-${link}-details' aria-expanded='false' data-js='toggle' show details
-        - else
-          div class='text-secondary-grey' Default
+        td class='text-right'
+          - if (config)
+            a class='whitespace-nowrap no-underline' data-js='toggle' href='#config-${link}-details'
+              span class='underline' Themed
+              span class='inline-block transform rotate-90' &nbsp;❯
 
-    - if (config)
-      div class='bg-secondary-white-70t hidden hidden:overflow animated' id='config-${link}-details' aria-hidden='true'
-        div class='p-2 layout-two-columns border-b border-base-white'
-          div
-            b Class
-          div class='pl-1'
-            b Property Value
+          - else
+            span Default
 
-        - for (i in config)
-          div class='p-2 layout-two-columns font-code text-primary-red small border-b border-base-white'
-            div = `.{{ prefix }}-${i}`;
-            div class='pl-1'
-              - if (Array.isArray(config[i]))
-                = `${config[i].join(', ')}`;
-              - else
-                = `${config[i]}`;
+      - if (config)
+        tr
+          td class='p-0' colspan='3'
+            div class='hidden' id='config-${link}-details' aria-hidden='true'
+              div class='cell-padding' = description
 
-h3#config-variants-and-core-plugins Variants and Core Plugins
+              dl class='description-list grid-cols-2'
+                dt class='not-italic'
+                  b Utility
+                dd
+                  b Token
 
-div class='p-2 layout-three-columns items-center bg-secondary-white'
-  div
-    b Plugin (link to docs)
-  div
-    b Variants
-  div class='text-right'
-    b Configuration
+                - for (i in config)
+                  dt class='not-italic code-block border-none mb-0'
+                    pre class='p-0'
+                      - if (prefix)
+                        = `.${prefix}${(i === 'DEFAULT') ? '' : `-${i}`}`;
+                      - else
+                        = `.${i}:{{ utility }}`;
 
-div class='mb-4'
-  - for (i in this.tailwind.corePlugins)
-    - plugin = this.tailwind.corePlugins[i];
-    - name = plugin.replace(/[\w]([A-Z])/g, (m) => m[0] + ' ' + m[1]).toLowerCase();
-    - link = name.replace(' ', '-');
+                  dd class='code-block border-none mb-0'
+                    pre class='p-0'
+                      - if (Array.isArray(config[i]))
+                        = `${config[i].join(', ')}`;
+                      - else
+                        = `${config[i]}`;
 
-    - config = (this.tailwind.theme.hasOwnProperty(plugin)) ? this.tailwind.theme[plugin] : false;
-    - variants = (this.tailwind.variants.hasOwnProperty(plugin)) ? this.tailwind.variants[plugin] : false;
+              div class='cell-padding text-center'
+                button class='btn p-1' aria-controls='config-${link}-details' aria-expanded='false' data-js='toggle'
+                    | Close
 
-    div class='p-2 layout-three-columns items-center border-b border-secondary-white-70t'
-      a href='${this.urls.tailwindDocs}${link}' class='capitalize' target='_blank' = `${name}`;
-
-      div class='font-code'
-        - if (variants)
-          = '[';
-          = `${variants.toString().replace(',', ', ')}`;
-          = ']';
-
-      div class='text-right'
-        - if (config)
-          a href='#config-${link}' Themed
-        - else
-          span class='text-secondary-grey' Default
+        tr
