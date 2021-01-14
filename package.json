@@ -12,5 +12,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/CityOfNewYork/patterns-docs.git"
+  },
+  "scripts": {
+    "version": "git add .",
+    "prepublishOnly": "git push && git push --tags"
   }
 }
