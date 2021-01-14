@@ -1,4 +1,8 @@
-[Figma](#figma) | [Browser](#browser)
+<nav>
+  <span>Contents:</span>
+  <a href="#heading-figma">Figma</a>
+  <a href="#heading-browser">Browser</a>
+</nav>
 
 ## Figma
 

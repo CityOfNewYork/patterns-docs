@@ -1,4 +1,11 @@
-[NPM Install](#npm-install) | [CDN](#cdn) | [Download](#download) | [Usage](#usage) | [Examples](#examples)
+<nav>
+  <span>Contents:</span>
+  <a href="#heading-npm-install">NPM Install</a>
+  <a href="#heading-cdn">CDN</a>
+  <a href="#heading-download">Download</a>
+  <a href="#uheading-sage">Usage</a>
+  <a href="#heading-examples">Examples</a>
+</nav>
 
 ## NPM Install
 
@@ -48,9 +55,9 @@ The majority of patterns share the same filename for the Sass and JavaScript (if
 
     @use '{{ this.package.name }}/src/components/accordion/_accordion.scss';
 
-#### tailwindcss
+#### Tailwindcss
 
-Importing tailwindcss is an exception because it is compiled to a Sass file in the _dist_ directory...
+Importing Tailwindcss is an exception because it is compiled to a Sass file in the _dist_ directory...
 
     @use 'node_modules/{{ this.package.name }}{{ this.package.cdn.tailwindsass }}';
 
@@ -184,7 +191,7 @@ These projects use the framework and [pattern libraries](#pattern-libraries) cre
 
 Pattern libraries created using the framework.
 
-* [WorkingNYC Patterns](https://github.com/CityOfNewYork/nyco-wnyc-patterns)
-* [Growing Up NYC Patterns](https://github.com/NYCOpportunity/growingupnyc-patterns)
-* [ACCESS NYC Patterns](https://github.com/CityOfNewYork/ACCESS-NYC-PATTERNS/)
+* [Working Patterns](https://github.com/CityOfNewYork/nyco-wnyc-patterns)
+* [Growing Up Patterns](https://github.com/NYCOpportunity/growingupnyc-patterns)
+* [ACCESS Patterns](https://github.com/CityOfNewYork/ACCESS-NYC-PATTERNS/)
 * [NYCO Patterns](https://github.com/CityOfNewYork/nyco-patterns)

@@ -1,5 +1,3 @@
-## Contributing
-
 Starting the development server (assuming you've added the recommended [npm scripts](../readme.md#npm-scripts) to your package.json) will enable compilation and previewing changes to patterns;
 
 ```shell
