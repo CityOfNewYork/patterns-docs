@@ -1,7 +1,7 @@
 <nav>
   <span>Contents:</span>
-  <a href="#heading-figma">Figma</a>
-  <a href="#heading-browser">Browser</a>
+  <a href="#{{ this.marked.headerPrefix }}figma">Figma</a>
+  <a href="#{{ this.marked.headerPrefix }}browser">Browser</a>
 </nav>
 
 ## Figma

@@ -29,18 +29,18 @@ The following template variables are used by the documentation to refer to paths
 
 Template Variable                           | Description
 --------------------------------------------|-
-`this.package.name`                   | The package name. See [NPM package.json documentation](https://docNPMjs.com/cli/v6/configuring-npm/package-json#name) for details. This may or may not include an [NPM Organization](https://docs.npmjs.com/organizations) prefix.
-`this.package.nice`                   | A human readable package or pattern library name.
-`this.package.version`                | The package semantic version. See [NPM package.json documentation](https://docs.npmjs.com/cli/v6/configuring-npm/package-json#version) for details.
-`this.package.cdn.url`                | The preferred CDN url. Usually matches the pattern `https://cdn.jsdelivr.net/gh/{{ GitHub Organization }}/{{ repo }}`. This example uses [JS Delivr](https://www.jsdelivr.com/).
-`this.package.cdn.source`             | The GitHub repository url. Usually matches the pattern `https://github.com/{{ GitHub Organization }}/{{ repo }}`
-`this.package.cdn.archive`            | The GitHub archive url. Usually matches the pattern `https://github.com/{{ GitHub Organization }}/{{ repo }}/archive`.
-`this.package.cdn.styles`             | The local path to the fully distributed stylesheet module.
-`this.package.cdn.scripts`            | The local path to the fully distributed JavaScript module.
-`this.package.cdn.svg`                | The local path to the fully distributed SVG sprite.
-`this.package.cdn.tailwindcss`        | The local path to the fully distributed Tailwindcss utility CSS stylesheet.
-`this.package.cdn.tailwindsass`       | The local path to the fully distributed Tailwindcss Utility Sass stylesheet.
-`this.package.instantiations.scripts` | The main script module name used to instantiate the global pattern script. For example `new Default()` would instantiate a module named `Default`.
+`this.package.name`                         | The package name. See [NPM package.json documentation](https://docNPMjs.com/cli/v6/configuring-npm/package-json#name) for details. This may or may not include an [NPM Organization](https://docs.npmjs.com/organizations) prefix.
+`this.package.nice`                         | A human readable package or pattern library name.
+`this.package.version`                      | The package semantic version. See [NPM package.json documentation](https://docs.npmjs.com/cli/v6/configuring-npm/package-json#version) for details.
+`this.package.cdn.url`                      | The preferred CDN url. Usually matches the pattern `https://cdn.jsdelivr.net/gh/{{ GitHub Organization }}/{{ repo }}`. This example uses [JS Delivr](https://www.jsdelivr.com/).
+`this.package.cdn.source`                   | The GitHub repository url. Usually matches the pattern `https://github.com/{{ GitHub Organization }}/{{ repo }}`
+`this.package.cdn.archive`                  | The GitHub archive url. Usually matches the pattern `https://github.com/{{ GitHub Organization }}/{{ repo }}/archive`.
+`this.package.cdn.styles`                   | The local path to the fully distributed stylesheet module.
+`this.package.cdn.scripts`                  | The local path to the fully distributed JavaScript module.
+`this.package.cdn.svg`                      | The local path to the fully distributed SVG sprite.
+`this.package.cdn.tailwindcss`              | The local path to the fully distributed Tailwindcss utility CSS stylesheet.
+`this.package.cdn.tailwindsass`             | The local path to the fully distributed Tailwindcss Utility Sass stylesheet.
+`this.package.instantiations.scripts`       | The main script module name used to instantiate the global pattern script. For example `new Default()` would instantiate a module named `Default`.
 
 Below is how template variables are set in a sample **package.json** file.
 
@@ -65,3 +65,11 @@ Below is how template variables are set in a sample **package.json** file.
   // ...
 }
 ```
+
+## Slm Variables
+
+Additional template variables can be set in the project **config/slm.js**.
+
+Template Variable          | Description
+---------------------------|-
+`this.marked.headerPrefix` | Prefix for markdown file heading IDs. This should be set to a blank string if no prefix is desired `''`. This assists with inline anchor links.

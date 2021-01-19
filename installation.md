@@ -1,10 +1,10 @@
 <nav>
   <span>Contents:</span>
-  <a href="#heading-npm-install">NPM Install</a>
-  <a href="#heading-cdn">CDN</a>
-  <a href="#heading-download">Download</a>
-  <a href="#uheading-sage">Usage</a>
-  <a href="#heading-examples">Examples</a>
+  <a href="#{{ this.marked.headerPrefix }}npm-install">NPM Install</a>
+  <a href="#{{ this.marked.headerPrefix }}cdn">CDN</a>
+  <a href="#{{ this.marked.headerPrefix }}download">Download</a>
+  <a href="#{{ this.marked.headerPrefix }}usage">Usage</a>
+  <a href="#{{ this.marked.headerPrefix }}examples">Examples</a>
 </nav>
 
 ## NPM Install
