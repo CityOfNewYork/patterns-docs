@@ -1,3 +1,5 @@
+## Tailwindcss Logical
+
 The [Tailwindcss Logical](https://github.com/stevecochrane/tailwindcss-logical) plugin extends the utility set with CSS logical properties. {{ this.package.nice }} includes this plugin in its Tailwindcss implementation. This particularly useful for languages that use right-to-left reading directions.
 
 Utility           | Description
