@@ -7,6 +7,12 @@
   <a href="#{{ this.marked.headerPrefix }}examples">Examples</a>
 </nav>
 
+## Getting Started
+
+There are three main methods of installation. The preferred method is to use [NPM (Node Package Manager)](https://www.npmjs.com/) to install the source in the **node_modules/** directory of your poject so that you can compile a custom stylesheets, JavaScript, and SVGs for your application. This method helps maintain a link with the {{ this.package.nice }} source.
+
+The other two options involve using distributed stylesheets and scripts via a public CDN to pull in files into the page using `<link>` and `<script>` tags or downloading a copy of the package from GitHub to include the package in the project source.
+
 ## NPM Install
 
     $ npm install {{ this.package.name }}
@@ -15,23 +21,31 @@
 
 Compiled styles and scripts in the **/dist** folder of the GitHub repository can be imported on the page using a CDN such as [JsDelivr](https://www.jsdelivr.com). The following global stylesheet link can be copied and pasted into the the `<head>` of your html document.
 
-    <link href="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.styles }}" rel="stylesheet">
+```html
+<link href="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.styles }}" rel="stylesheet">
+```
 
 The following global script source can copied and pasted before the closing `</body>` tag of your html document.
 
-    <script src="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.scripts }}"></script>
+```html
+<script src="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.scripts }}"></script>
+```
 
 With the script integrated, SVG icons can be added with the following snippet.
 
-    <script>
-      var patterns = new {{ this.package.instantiations.scripts }}();
+```html
+<script>
+  var patterns = new {{ this.package.instantiations.scripts }}();
 
-      patterns.icons('{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.svg }}');
-    </script>
+  patterns.icons('{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.svg }}');
+</script>
+```
 
 The following url is the base url for all distributed files available via a CDN.
 
-    {{ this.package.cdn.url }}@v{{ this.package.version }}/dist/
+```
+{{ this.package.cdn.url }}@v{{ this.package.version }}/dist/
+```
 
 <a href="{{ this.package.cdn.source }}/tree/v{{ this.package.version }}/dist/">Visit the GitHub repository to browse all available files</a>. All Patterns are distributed with their own styles and script dependencies in the **/dist** folder. For example, all of the "Accordion" dependencies would live in the **/dist/components/accordion** folder.
 
@@ -180,18 +194,20 @@ The main JavaScript import file in the source will show how each component needs
 
 ### Projects
 
-These projects use the framework and [pattern libraries](#pattern-libraries) created with the framework.
+These projects use <a href="#{{ this.marked.headerPrefix }}pattern-libraries">pattern libraries</a> created with the [Patterns CLI](https://github.com/cityofnewyork/patterns-cli) which is how the {{ this.package.nice }} were created. Because of this, they have similar source and distribution structures to use as integration examples. Additionally, they all use NPM to install pattern libraries with slight variations in the asset compilation.
 
-* [WorkingNYC](https://github.com/NYCOpportunity/workingnyc/tree/main/wp-content/themes/workingnyc) - Assets managed by NPM Scripts; Dart Sass, and Rollup.js
-* [NYCO Patterns React App](https://github.com/CityOfNewYork/nyco-patterns-react) Demo - Assets managed by React Scripts (Create React App); Webpack and Dart Sass
-* [ACCESS NYC](https://github.com/CityOfNewYork/ACCESS-NYC/tree/main/wp-content/themes/access) - Assets managed by Gulp.js; LibSass, and Webpack
-* [Screening API Docs](https://github.com/CityOfNewYork/screeningapi-docs) - Assets managed by Gulp.js; LibSass and Browserify
+* [Working NYC](https://github.com/nycopportunity/workingnyc/tree/main/wp-content/themes/workingnyc) - This is a WordPress theme that uses NPM and Node.js scripts to manage assets from the Working Patterns.
+* [NYCO Patterns Angular App](https://github.com/cityofnewyork/patterns-angular) - This is a demo application initialized using the Angular CLI that has the NYCO Patterns installed via NPM.
+* [NYCO Patterns React App](https://github.com/cityofnewyork/patterns-create-react-app) - This is a demo application initialized using Create React App that has the NYCO Patterns installed via NPM.
+* [ACCESS NYC](https://github.com/CityOfNewYork/ACCESS-NYC/tree/main/wp-content/themes/access) - This is a WordPress theme that uses NPM and Gulp.js to manage assets in the ACCESS Patterns.
+* [Screening API Docs](https://github.com/cityofnewyork/screeningapi-docs) - This is a static site that uses NPM and Gulp.js to manage assets from the NYCO Patterns.
 
 ### Pattern Libraries
 
-Pattern libraries created using the framework.
+Pattern libraries created using the [Pattern CLI](https://github.com/cityofnewyork/patterns-cli).
 
-* [Working Patterns](https://github.com/CityOfNewYork/nyco-wnyc-patterns)
-* [Growing Up Patterns](https://github.com/NYCOpportunity/growingupnyc-patterns)
-* [ACCESS Patterns](https://github.com/CityOfNewYork/ACCESS-NYC-PATTERNS/)
-* [NYCO Patterns](https://github.com/CityOfNewYork/nyco-patterns)
+* [Working Patterns](https://github.com/cityofnewyork/nyco-wnyc-patterns)
+* [Growing Up Patterns](https://github.com/nycopportunity/growingupnyc-patterns)
+* [ACCESS Patterns](https://github.com/cityofnewyork/ACCESS-NYC-PATTERNS/)
+* [NYCO Patterns](https://github.com/cityofnewyork/nyco-patterns)
+
