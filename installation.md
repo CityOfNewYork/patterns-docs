@@ -9,7 +9,7 @@
 
 ## Getting Started
 
-There are three main methods of installation. The preferred method is to use [NPM (Node Package Manager)](https://www.npmjs.com/) to install the source in the **node_modules/** directory of your poject so that you can compile a custom stylesheets, JavaScript, and SVGs for your application. This method helps maintain a link with the {{ this.package.nice }} source.
+There are three main methods of installation. The preferred method is to use [NPM (Node Package Manager)](https://www.npmjs.com/) to install the source in the **node_modules/** directory of your poject so that you can compile custom stylesheets, JavaScript, and SVGs for your application. This method helps maintain a link with the {{ this.package.nice }} source.
 
 The other two options involve using distributed stylesheets and scripts via a public CDN to pull in files into the page using `<link>` and `<script>` tags or downloading a copy of the package from GitHub to include the package in the project source.
 

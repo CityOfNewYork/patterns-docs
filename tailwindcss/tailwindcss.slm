@@ -36,7 +36,6 @@ table class='table'
           - if (config)
             a class='whitespace-nowrap no-underline' data-js='toggle' href='#config-${link}-details'
               span class='underline' Themed
-              span class='inline-block transform rotate-90' &nbsp;❯
 
           - else
             span Default

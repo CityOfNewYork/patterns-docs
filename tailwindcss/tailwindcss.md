@@ -8,4 +8,4 @@
 
 * **Theme**: This object contains {{ this.package.nice }} tokens for particular utilities such as font families, colors, margin, padding, etc. [Source documentation](https://tailwindcss.com/docs/theme). Example; the padding plugin is customized to use `8px` as the basis for all padding increments. `.p-2` would add `8px × 2 = 16px` padding on all sides of an element: `<div class="p-2"></div>`.
 
-Below is a table describing the current <a href="{{ this.package.source }}/blob/main/config/tailwindcss.js">configuration source</a> that includes which core plugins are enabled, what variants they use, and if they are themed with NYCO Pattern design tokens.
+The current <a href="{{ this.package.cdn.source }}/blob/main/config/tailwindcss.js">configuration source</a> describes which core plugins are enabled, what variants they use, and if they are themed with the {{ this.package.nice }} design tokens.
