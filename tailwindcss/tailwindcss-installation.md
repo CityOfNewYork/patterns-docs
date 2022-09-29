@@ -1,37 +1,48 @@
-## Installation
-
-### As a stylesheet
+##### As a stylesheet
 
 Tailwindcss is not imported the same way as other patterns. All utilities are compiled to a Sass file `{{ this.package.cdn.tailwindsass }}` which can be imported in a Sass project.
 
 ```scss
-@import 'node_modules/{{ this.package.name }}{{ this.package.cdn.tailwindsass }}';
+@import '{{ this.package.name }}/{{ this.global.src }}{{ this.global.entry.tailwindsass }}';
 ```
 
 They are also available as compiled a CSS file in the **/dist** folder:
 
 ```
-{{ this.package.cdn.tailwindcss }}
+/{{ this.global.dist }}{{ this.global.entry.tailwindcss }}
 ```
 
 The CSS file can be included through a CDN with the latest release ({{ this.package.version }}).
 
 ```html
-<link href="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.tailwindcss }}" rel="stylesheet" type="text/css">
+<link href="{{ this.package.cdn.url }}@v{{ this.package.version }}/{{ this.global.dist }}{{ this.global.entry.tailwindcss }}" rel="stylesheet" type="text/css">
 ```
 
-### As a dependency
+##### As a dependency
 
-It is also possible to install Tailwindcss as a dependency in your project and import the {{ this.package.nice }} tailwindcss.js configuration into your project. See the [Tailwindcss integration guides for various projects](https://tailwindcss.com/docs/installation). Below is the full path to the configuration file.
+It is also possible to install Tailwindcss as a dependency in your project and import the {{ this.package.nice }} tailwindcss.js configuration into your project. See the <a href="https://tailwindcss.com/docs/installation" target="_blank" rel="noindex nofollow">Tailwindcss integration guides for various projects</a>.
 
 ```javascript
-node_modules/{{ this.package.name }}/config/tailwindcss.js
+let tailwindcss = require('{{ this.package.name }}/config/tailwindcss.js');
+
+module.exports = tailwindcss;
 ```
 
-### Production distributions
+Modifications can be made to the configuration before exporting it. For example, the Tailwindcss Just-in-time (JIT) engine can be enabled for production distributions (described below).
 
-It is highly recommended to remove unused CSS classes in your stylesheet. The output of Tailwindcss produces a very large stylesheet with many utilities that won't be used in your project.
+```javascript
+let tailwindcss = require('{{ this.package.name }}/config/tailwindcss.js');
 
-* [PurgeCSS](https://purgecss.com/) can analyze the classnames used in your static markup files and remove them from your stylesheet. See the [Tailwindcss optimizing for production guide](https://tailwindcss.com/docs/optimizing-for-production).
+tailwindcss.purge = [
+  './views/**/*.twig',
+  './views/**/*.vue'
+];
 
-* The [Windi CSS](https://windicss.org/) utility framework can also use the contents of a [Tailwindcss configuration](https://windicss.org/guide/migration.html) to compile {{ this.package.nice }} utilities on demand.
+module.exports = tailwindcss;
+```
+
+##### Production distributions
+
+Tailwindcss (v3) will generate styles "on demand" by analyzing static templates or html files. It is recommended to enable this feature to keep your production stylesheets as small as possible. Read more about the <a href="https://tailwindcss.com/docs/upgrade-guide#migrating-to-the-jit-engine" target="_blank" rel="noindex nofollow">Tailwindcss JIT engine</a>.
+
+The {{ this.package.nice }} disables the JIT engine so that all utilities are generated and available for development and integration in other projects.
