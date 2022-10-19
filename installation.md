@@ -7,37 +7,39 @@
   <a href="#{{ this.marked.headerPrefix }}examples">Examples</a>
 </nav>
 
-## Getting Started
+#### Getting Started
 
-There are three main methods of installation. The preferred method is to use [NPM (Node Package Manager)](https://www.npmjs.com/) to install the source in the **node_modules/** directory of your poject so that you can compile custom stylesheets, JavaScript, and SVGs for your application. This method helps maintain a link with the {{ this.package.nice }} source.
+There are three main methods of installation. The preferred method is to use <a href="https://www.npmjs.com/" target="_blank" rel="noopener nofollow">NPM (Node Package Manager)</a> to install the source in the _node_modules/_ directory of your project. This method enables you to compile your application's CSS, JavaScript, and SVGs. It also maintains a dependency link with the {{ this.package.nice }} source.
 
-The other two options involve using distributed stylesheets and scripts via a public CDN to pull in files into the page using `<link>` and `<script>` tags or downloading a copy of the package from GitHub to include the package in the project source.
+The other two options involve using distributed stylesheets and scripts via a public CDN. These are linked to the page using `<link>` and `<script>` tags.
 
-## NPM Install
+#### NPM Install
 
-    $ npm install {{ this.package.name }}
-
-## CDN
-
-Compiled styles and scripts in the **/dist** folder of the GitHub repository can be imported on the page using a CDN such as [JsDelivr](https://www.jsdelivr.com). The following global stylesheet link can be copied and pasted into the the `<head>` of your html document.
-
-```html
-<link href="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.styles }}" rel="stylesheet">
+```shell
+npm install {{ this.package.name }}
 ```
 
-The following global script source can copied and pasted before the closing `</body>` tag of your html document.
+#### CDN
+
+Compiled styles and scripts in the **/dist** folder of the GitHub repository can be imported on the page using a CDN such as <a href="https://www.jsdelivr.com" target="_blank" rel="noopener nofollow">JsDelivr</a>. The following global stylesheet link can be copied and pasted into the `<head>` of your HTML document.
 
 ```html
-<script src="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.scripts }}"></script>
+<link href="{{ this.package.cdn.url }}@v{{ this.package.version }}/{{ this.global.dist }}/{{ this.global.entry.styles }}" rel="stylesheet">
 ```
 
-With the script integrated, SVG icons can be added with the following snippet.
+The following global script source can be copied and pasted before your HTML document's closing `</body>` tag.
+
+```html
+<script src="{{ this.package.cdn.url }}@v{{ this.package.version }}/{{ this.global.dist }}/{{ this.global.entry.scripts }}"></script>
+```
+
+You can add SVG icons with the following snippet when the global script source is linked.
 
 ```html
 <script>
-  var patterns = new {{ this.package.instantiations.scripts }}();
+  var patterns = new {{ this.global.entry.name }}();
 
-  patterns.icons('{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.svg }}');
+  patterns.icons('{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.global.entry.svgs }}');
 </script>
 ```
 
@@ -47,167 +49,234 @@ The following url is the base url for all distributed files available via a CDN.
 {{ this.package.cdn.url }}@v{{ this.package.version }}/dist/
 ```
 
-<a href="{{ this.package.cdn.source }}/tree/v{{ this.package.version }}/dist/">Visit the GitHub repository to browse all available files</a>. All Patterns are distributed with their own styles and script dependencies in the **/dist** folder. For example, all of the "Accordion" dependencies would live in the **/dist/components/accordion** folder.
+<a href="{{ this.package.cdn.source }}/tree/v{{ this.package.version }}/dist/" target="_blank" rel="noopener nofollow">Visit the GitHub repository to browse all distributed files available to the CDN</a>.
 
-There are regular releases to the patterns which follow semantic versioning. You can keep up-to-date with [new releases on each repository's releases page](https://help.github.com/en/github/receiving-notifications-about-activity-on-github/watching-and-unwatching-releases-for-a-repository).
+There are regular releases to the patterns which follow semantic versioning. You can keep up-to-date with <a href="https://help.github.com/en/github/receiving-notifications-about-activity-on-github/watching-and-unwatching-releases-for-a-repository" target="_blank" rel="noopener nofollow">new releases on each repository's releases page</a>.
 
-## Download
+#### Download
 
-You may also download an archive of the repository to include in your project; <a href="{{ this.package.cdn.archive }}/v{{ this.package.version }}.zip">Download v{{ this.package.version }}.zip</a>
+You may also download an archive of the repository to include in your project; <a href="{{ this.package.cdn.archive }}/v{{ this.package.version }}.zip" target="_blank" rel="noopener nofollow">Download v{{ this.package.version }}.zip</a>
 
-## Usage
+#### Usage
 
-### Sass
+##### Sass
 
-Sass stylesheets for any pattern can be imported into a project from the source directory.
+You can import all of the Sass modules into a project from the source directory.
 
-    @use '{{ this.package.name }}/src/components/accordion/accordion';
+```scss
+@forward '{{ this.package.name }}/src/scss/imports'
+```
 
-#### Specificity
+Or you can import individual Sass modules for any pattern from their respective pattern directory.
 
-The majority of patterns share the same filename for the Sass and JavaScript (if a pattern uses JavaScript). It may be necessary to specify that you need to import the Sass file for [React](https://reactjs.org/) (or other) applications.
+```scss
+@forward '{{ this.package.name }}/src/components/accordion/accordion';
+```
 
-    @use '{{ this.package.name }}/src/components/accordion/_accordion.scss';
+**Specificity**
 
-#### Tailwindcss
+Most patterns share the same filename for Sass and JavaScript (if used). Specifying that you need to import the Sass file for <a href="https://reactjs.org/" target="_blank" rel="noopener nofollow">React</a> (or other) applications may be necessary.
 
-Importing Tailwindcss is an exception because it is compiled to a Sass file in the _dist_ directory...
+```scss
+@forward '{{ this.package.name }}/src/components/accordion/_accordion.scss';
+```
 
-    @use 'node_modules/{{ this.package.name }}{{ this.package.cdn.tailwindsass }}';
+##### Tailwindcss
 
-... and a CSS file in the distribution folder:
+Importing Tailwindcss is compiled to a Sass file in the _src_ directory and a CSS file in the distribution folder and a CSS file in the _dist_ folder.
 
-    <link href="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.cdn.tailwindcss }}" rel="stylesheet">
+```scss
+@forward 'node_modules/{{ this.package.name }}/src{{ this.global.entry.tailwindsass }}';
+```
 
-#### Asset Paths and CDN
+```html
+<link href="{{ this.package.cdn.url }}@v{{ this.package.version }}{{ this.package.version }}{{ this.global.entry.tailwindcss }}" rel="stylesheet">
+```
 
-The styles use the `url()` for loading webfonts, images, and svgs. By default, it is set to look for asset directories one directory up from the distributed stylesheet so the directory structure of your application is expected to look like so:
+Refer to the [Tailwindcss page](tailwindcss) for more details.
 
-    styles/site-default.scss
-    images/..
-    fonts/..
-    svg/..
+##### Asset Paths and CDN
 
-However, you can set the path to a different path that includes all of these files using the `$cdn` variable.
+Stylesheets use the `url()` CSS function for loading external assets such as web fonts, images, and SVGs. By default, it looks for asset directories from one directory up from the distributed stylesheet. This means the directory structure of your application is expected to look like so.
 
-    // $cdn: '../'; (default)
-    $cdn: 'path/to/assets/';
+```
+styles/site-default.css
+svg/..
+```
 
-This variable should be placed above all of your imports of the pattern Sass files. The CDN can be set to another local path (such as an absolute path), or, it can be set to the remote url within the `$tokens` map. This default uses [jsDelivr](https://www.jsdelivr.com/) to pull the assets from the patterns GitHub repository and the tag of the installed version. ex;
+However, you can set the path differently using the `$cdn` variable.
 
-    @use 'config/tokens';
-    $cdn: map-get($tokens, 'cdn');
+```scss
+// $cdn: '../'; (default)
+$cdn: 'path/to/assets/';
+```
 
-These are the default paths to the different asset types within the asset folder. Uncomment and set to override their defaults.
+To modify, you should place this variable above your `@forward` rules for Sass files. You can set the CDN to another local path (such as an absolute path), or you can set it to the remote url within the `$tokens` variable map. This default uses <a href="https://www.jsdelivr.com" target="_blank" rel="noopener nofollow">JsDelivr</a> CDN to link the assets from the patterns GitHub repository and the tag of the installed version.
 
-    $path-to-fonts: 'fonts/';
-    $path-to-images: 'images/';
-    $path-to-svg: 'svg/';
+```scss
+@use 'config/tokens' as *;
 
-This is recommended for [Webpack](https://webpack.js.org/) projects using the [css-loader](https://webpack.js.org/loaders/css-loader) (React Scripts (Create React App) use this loader) because Webpack will try to import the asset into your distributed stylesheet. If you don't want to change the `$cdn` variable it is recommended for to disable the [url / image-set functions handling with a boolean](https://webpack.js.org/loaders/css-loader/#boolean).
+$cdn: map-get($tokens, 'cdn');
+```
 
-#### Resolving Paths to Patterns
+These are the default paths to the different asset types within the asset folder. Uncomment and set it to override their defaults.
 
-You can add the string `'node_modules/{{ this.package.name }}/src'` to your "resolve" or "include" paths which will allow you to write the shorthand path;
+```scss
+$path-to-fonts: 'fonts/';
+$path-to-images: 'images/';
+$path-to-svg: 'svg/';
+```
 
-    @use 'components/accordion/accordion';
+It would help if you used this for <a href="https://webpack.js.org/" target="_blank" rel="noopener nofollow">Webpack</a> projects using the <a href="https://webpack.js.org/loaders/css-loader" target="_blank" rel="noopener nofollow">css-loader</a> (such as React and projects scaffolded using create-react-app). Webpack will try to import the asset into your distributed stylesheet. Assuming you don't want to change the $cdn variable. In that case, you can disable the <a href="https://webpack.js.org/loaders/css-loader/#boolean" target="_blank" rel="noopener nofollow">url / image-set functions handling with a boolean</a>.
+
+##### Resolving Paths to Patterns
+
+You can add the string `node_modules/{{ this.package.name }}/src` to your "resolve" or "include" paths which will allow you to write the shorthand path.
+
+```scss
+@forward 'components/accordion/accordion';
+```
 
 or
 
-    @use 'components/accordion/_accordion.scss';
+```scss
+@forward 'components/accordion/_accordion.scss';
+```
 
-For example; the [LibSass](https://github.com/sass/node-sass) `includePaths` option which is array of paths that attempt to resolve your `@use` declarations.
+Below is an example of the Sass `includePaths` option, an array of path strings that attempt to resolve your `@import` (deprecated), `@forward`, or `@use` rules if Sass can't find files locally.
 
-    Sass.render({
-        file: './src/scss/default.scss',
-        outFile: 'site-default.css',
-        includePaths: [
-          './node_modules',
-          './node_modules/{{ this.package.name }}/src'
-        ]
-      }, (err, result) => {
-        Fs.writeFile(`./dist/styles/default.css`, result.css);
-      }
-    });
+```javascript
+Sass.render({
+    file: './src/scss/default.scss',
+    outFile: 'site-default.css',
+    includePaths: [
+      `${process.env.PWD}/node_modules`,
+      `${process.env.PWD}/node_modules/{{ this.package.name }}/src`
+    ]
+  }, (err, result) => {
+    Fs.writeFile(`${process.env.PWD}/dist/styles/default.css`, result.css);
+  }
+});
+```
 
 Similar to the the [gulp-sass](https://www.npmjs.com/package/gulp-sass) `includePaths` option.
 
-    gulp.task('sass', () => {
-      return gulp.src('./sass/**/*.scss')
-        .pipe(sass.({includePaths: [
-          'node_modules',
-          'node_modules/{{ this.package.name }}/src'
-        ]})).pipe(gulp.dest('./css'));
-    });
+```javascript
+gulp.task('sass', () => {
+  return gulp.src('./sass/**/*.scss')
+    .pipe(sass.({includePaths: [
+      `${process.env.PWD}/node_modules`,
+      `${process.env.PWD}/node_modules/{{ this.package.name }}/src`
+    ]})).pipe(gulp.dest('./css'));
+});
+```
 
-[LibSass](https://github.com/sass/node-sass) and [Dart Sass](https://github.com/sass/dart-sass) also support using the `SASS_PATH` environment variable. This variable is useful when configuring a React Application using [React Scripts (Create React App)](https://create-react-app.dev/docs/adding-a-sass-stylesheet).
+<a href="https://github.com/sass/node-sass" target="_blank" rel="noopener nofollow">LibSass</a> and <a href="https://github.com/sass/dart-sass" target="_blank" rel="noopener nofollow">Dart Sass</a> also support using the `SASS_PATH` environment variable. This variable is valid when configuring a React Application using <a href="https://create-react-app.dev/docs/adding-a-sass-stylesheet" target="_blank" rel="noopener nofollow">React Scripts (Create React App)</a>.
 
-    SASS_PATH=node_modules:node_modules/{{ this.package.name }}/src
+```
+SASS_PATH=node_modules:node_modules/{{ this.package.name }}/src
+```
 
-[Webpack](https://webpack.js.org/) can be configured with the [resolve > modules](https://webpack.js.org/configuration/resolve/#resolvemodules) option.
+You can configure Webpack with the <a href="https://webpack.js.org/configuration/resolve/#resolvemodules" target="_blank" rel="noopener nofollow">resolve modules option</a>.
 
-    module.exports = {
-      //...
-      resolve: {
-        modules: [
-          './node_modules',
-          './node_modules/{{ this.package.name }}/src'
-        ]
-      }
-    };
+```javascript
+module.exports = {
+  //...
+  resolve: {
+    modules: [
+      `${process.env.PWD}/node_modules`,
+      `${process.env.PWD}/node_modules/{{ this.package.name }}/src`
+    ]
+  }
+};
+```
 
-### Scripts
+Below is an example for a <a href="https://nuxtjs.org/" target="_blank" rel="noopener nofollow">Nuxt.js</a> application configuration (which uses Webpack under the hood).
 
-The JavaScript source is written as ES Modules, and using [Rollup.js](https://rollupjs.org), individual components with JavaScript dependencies are distributed as IFFE functions. Depending on your project, you can import either of these. Below are examples of importing only the accordion component and initializing it.
+```javascript
+const config = {
+  css: ['@/assets/scss/main.scss'],
+  styleResources: {
+    scss: [
+      '@/assets/scss/_variables.scss',
+    ]
+  },
+  buildModules: [
+    '@nuxtjs/style-resources',
+  ],
+  build: {
+    extend(config) {
+      config.resolve.modules.push(`${process.env.PWD}/node_modules`);
+      config.resolve.modules.push(`${process.env.PWD}/node_modules/{{ this.package.name }}`);
+    }
+  }
+}
 
-#### ES Module Import
+export default config;
+```
 
-    import Accordion from 'src/components/accordion/accordion';
+##### Scripts
 
-    new Accordion();
+The JavaScript source uses ES Modules. Import all JavaScript dependencies from the source and execute them individually.
 
-#### IFFE
+```javascript
+import Main from '{{ this.package.name }}/src/js/default'
 
-    <script src="dist/components/accordion.iffe.js"></script>
+Main.accordion();
+```
 
-    <script type="text/javascript">
-      new Accordion();
-    </script>
+Or you can import individual ES Modules for any pattern from their respective pattern directory and initialize them. Individual imports enable you to customize JavaScript behavior.
 
-**Note** You can also use IFFE modules through the CDN installation method without needing using NPM to install in your project.
+```javascript
+import Accordion from '{{ this.package.name }}/src/components/accordion/accordion';
 
-#### Global Pattern Script
+new Accordion();
+```
 
-You may also import the main patterns script with all of the dependencies in it. This script is exported as an IFFE function so it doesn't need to be compiled but you may want to uglify it. Components must be initialized individually.
+Using <a href="https://rollupjs.org" target="_blank" rel="noopener nofollow">Rollup.js</a>, an IFFE function with all JavaScript modules is distributed in a single global script. You may import this script and initialize modules individually.
 
-    <script src="{{ this.package.cdn.scripts }}"></script>
+```html
+<script src="{{ this.package.cdn.url }}@v{{ this.package.version }}/{{ this.global.dist }}/{{ this.global.entry.scripts }}"></script>
 
-    <script type="text/javascript">
-      var patterns = new {{ this.package.instantiations.scripts }}();
+<script type="text/javascript">
+  var patterns = new {{ this.global.entry.name }}();
 
-      patterns.accordion();
-    </script>
+  patterns.accordion();
+</script>
+```
 
-The main JavaScript import file in the source will show how each component needs to be initialized if it isn't specified in the pattern's documentation.
+The main JavaScript import file in the source will show how each module needs to be initialized if it isn't specified in the individual pattern's documentation.
 
-## Examples
+#### SVGs
 
-### Projects
+You can add the SVG icon sprite to the DOM several ways. The first example is from the main script source.
 
-These projects use <a href="#{{ this.marked.headerPrefix }}pattern-libraries">pattern libraries</a> created with the [Patterns CLI](https://github.com/cityofnewyork/patterns-cli) which is how the {{ this.package.nice }} were created. Because of this, they have similar source and distribution structures to use as integration examples. Additionally, they all use NPM to install pattern libraries with slight variations in the asset compilation.
+```javascript
+import Main from '{{ this.package.name }}/src/js/default'
 
-* [Working NYC](https://github.com/nycopportunity/workingnyc/tree/main/wp-content/themes/workingnyc) - This is a WordPress theme that uses NPM and Node.js scripts to manage assets from the Working Patterns.
-* [NYCO Patterns Angular App](https://github.com/cityofnewyork/patterns-angular) - This is a demo application initialized using the Angular CLI that has the NYCO Patterns installed via NPM.
-* [NYCO Patterns React App](https://github.com/cityofnewyork/patterns-create-react-app) - This is a demo application initialized using Create React App that has the NYCO Patterns installed via NPM.
-* [ACCESS NYC](https://github.com/CityOfNewYork/ACCESS-NYC/tree/main/wp-content/themes/access) - This is a WordPress theme that uses NPM and Gulp.js to manage assets in the ACCESS Patterns.
-* [Screening API Docs](https://github.com/cityofnewyork/screeningapi-docs) - This is a static site that uses NPM and Gulp.js to manage assets from the NYCO Patterns.
+Main.icons('path/to{{ this.global.entry.svgs }}');
+```
 
-### Pattern Libraries
+Or by using the <a href="https://github.com/CityOfNewYork/patterns-scripts">Patterns Script Utility</a> which is a dependency of the {{ this.package.nice }}.
 
-Pattern libraries created using the [Pattern CLI](https://github.com/cityofnewyork/patterns-cli).
+```javascript
+import Icons from '@nycopportunity/patterns-scripts/src/icons/icons'
 
-* [Working Patterns](https://github.com/cityofnewyork/nyco-wnyc-patterns)
-* [Growing Up Patterns](https://github.com/nycopportunity/growingupnyc-patterns)
-* [ACCESS Patterns](https://github.com/cityofnewyork/ACCESS-NYC-PATTERNS/)
-* [NYCO Patterns](https://github.com/cityofnewyork/nyco-patterns)
+new Icons('path/to{{ this.global.entry.svgs }}');
+```
 
+Or from the distributed global script.
+
+```html
+<script>
+  var patterns = new {{ this.global.entry.name }}();
+
+  patterns.icons('path/to{{ this.global.entry.svgs }}');
+</script>
+```
+
+More details can be found on the [SVGs](svgs) page.
+
+#### Examples
+
+The {{ this.package.nice }} was created using the <a href="https://nycopportunity.github.io/patterns-framework/" target="_blank" rel="noopener nofollow">NYC Opportunity UI Patterns Framework</a>. You can find demonstrations of different integrations there for reference.
