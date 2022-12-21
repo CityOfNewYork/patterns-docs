@@ -6,4 +6,4 @@
 
 * **Theme**: This object contains {{ this.package.nice }} tokens for particular utilities such as font families, colors, margin, padding, etc. <a href="https://tailwindcss.com/docs/theme" target="_blank" rel="noindex nofollow">Source documentation</a>. Example; the padding plugin is customized to use `8px` as the basis for all padding increments. `.p-2` would add `8px × 2 = 16px` padding on all sides of an element: `<div class="p-2"></div>`.
 
-The current <a href="{{ this.package.cdn.source }}/blob/main/config/tailwindcss.js">configuration source</a> describes which core plugins are enabled, what variants they use, and if they are themed with the {{ this.package.nice }} design tokens.
+The current <a target="_blank" rel="noopener" href="{{ this.package.cdn.source }}/blob/main/config/tailwindcss.js">configuration source</a> describes which core plugins are enabled, what variants they use, and if they are themed with the {{ this.package.nice }} design tokens.
